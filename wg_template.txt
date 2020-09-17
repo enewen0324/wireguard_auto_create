@@ -1,0 +1,4 @@
+[Peer]
+PublicKey = KKKEY
+AllowedIPs = A.B.C.D
+PersistentKeepalive = 25

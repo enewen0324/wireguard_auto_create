@@ -1,0 +1,9 @@
+[Interface]
+PrivateKey = PPPRIKEY
+Address = A.B.C.D
+
+[Peer]
+PublicKey = hhtOWgfrAqK+h/rIgVj6x9680IUGRUCWnW6yLG43wBY=
+AllowedIPs = 192.168.50.0/24
+Endpoint = 140.113.168.239:25034
+PersistentKeepalive = 25
