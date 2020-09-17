@@ -26,7 +26,7 @@ case $wg_action in
         echo "Your publickey"
         echo $wg_public
         echo "Your tunnel file"
-        sed -e "s/A.B.C.D/192.168.50.${ip_number}\/24/g" -e "s/PPPRIKEY/${wg_private}/g" $template_path$template_tunnel_name > "${key_path}${$wg_hostname}/tunnel"
+        sed -e "s/A.B.C.D/192.168.50.${ip_number}\/24/g" -e "s/PPPRIKEY/${wg_private}/g" $template_path$template_tunnel_name > "${key_path}${wg_hostname}/tunnel"
         cat ${key_path}${$wg_hostname}/tunnel
     ;;
     "delete")
