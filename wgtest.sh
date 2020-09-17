@@ -7,8 +7,10 @@ key_path="/home/andy/wgkey/"
 server_key_path="/home/andy/wg/"
 wgconf_path="/usr/local/etc/wireguard/"
 
-read -p "\nThe wireguard configure you want to change: " wg_name
-read -p "\nAction(add or delete): " wg_action
+read -p "The wireguard configure you want to change: " wg_name
+echo -e "\n"
+read -p "Action(add or delete): " wg_action
+echo -e "\n"
 case $wg_action in
     "add")
         read -p "\nhostname: " wg_hostname
@@ -24,7 +26,7 @@ case $wg_action in
         ip_number=$(( ${ip_number} + 2 ))
         touch "192.168.50.$ip_number"
         sed -e "s/A.B.C.D/192.168.50.${ip_number}\/32/g" -e "s/KKKEY/${wg_reg_pub}/g" $template_path$template_name >> "${wgconf_path}${wg_name}.conf"
-        printf "\n\n" >> "${wgconf_path}${wg_name}.conf"
+        echo -e  "\n\n" >> "${wgconf_path}${wg_name}.conf"
         printf "\nYour publickey:\n"
         echo $wg_public
         sed -e "s/A.B.C.D/192.168.50.${ip_number}\/24/g" -e "s/PPPRIKEY/${wg_reg_pri}/g" $template_path$template_tunnel_name > "${key_path}${wg_hostname}/tunnel"
@@ -34,6 +36,16 @@ case $wg_action in
         printf "----------------------------\n"
     ;;
     "delete")
+    ;;
+    "test")
+        printf "\nYour tunnel file\n"
+        printf "----------------------------"
+        printf "----------------------------\n"
+
+        echo -e  "\nYour tunnel file\n"
+        echo -e "----------------------------"
+        echo -e "----------------------------\n"
+
     ;;
 esac
 read -p "Do you want to restart?(y/N) " restart_op
