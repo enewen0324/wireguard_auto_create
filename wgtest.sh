@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/local/bin/bash
 
 template_path="/home/andy/wireguard_auto_create/"
 template_name="wg_tmeplate.txt"
