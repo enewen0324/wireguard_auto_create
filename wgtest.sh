@@ -22,11 +22,12 @@ case $wg_action in
         wg_reg_pri=$(cat privatekey | sed -e "s/\\//\\\\\//g")
         echo $wg_reg_pub
         echo $wg_reg_pri
-        ip_number="$(cat ${wgconf_path}${wg_name} | grep Peer | wc -l)"
+        ip_number="$(cat ${wgconf_path}${wg_name}.conf | grep Peer | wc -l)"
         ip_number=$(( ${ip_number} + 2 ))
         echo "192.168.50.$ip_number"
         touch "192.168.50.$ip_number"
         sed -e "s/A.B.C.D/192.168.50.${ip_number}\/32/g" -e "s/KKKEY/${wg_reg_pub}/g" $template_path$template_name >> "${wgconf_path}${wg_name}.conf"
+        echo "\n\n" >> "${wgconf_path}${wg_name}.conf"
         echo "Your publickey"
         echo $wg_public
         echo "Your tunnel file"
