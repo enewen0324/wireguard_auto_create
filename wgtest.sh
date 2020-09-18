@@ -17,7 +17,7 @@ read -p "Action(add or delete or recover): " wg_action
 date=$(date +"%F#%T")
 cp "$wgconf_path$wg_name.conf" backup/$date
 backup_num=$(ls backup | wc -l)
-if [ $backup_num lt $max_backup_num ];then
+if [ "$backup_num" -lt "$max_backup_num" ];then
     delete_file=$(ls backup | head -1)
     echo -e "delete ${delete_file}"
 fi
