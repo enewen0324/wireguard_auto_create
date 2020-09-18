@@ -15,11 +15,12 @@ read -p "The wireguard configure you want to change: " wg_name
 read -p "Action(add or delete or recover): " wg_action
 
 date=$(date +"%F#%T")
-cp "$wgconf_path$wg_name.conf" backup/$date
-backup_num=$(ls backup | wc -l)
-if [ "$backup_num" -lt "$max_backup_num" ];then
-    delete_file=$(ls backup | head -1)
+cp "$wgconf_path$wg_name.conf" "${key_path}backup/$date"
+backup_num=$(ls ${key_path}backup | wc -l)
+if [ "$backup_num" -gt "$max_backup_num" ];then
+    delete_file=$(ls ${key_path}backup | head -1)
     echo -e "delete ${delete_file}"
+    rm -rf "${key_path}backup/$delete_file"
 fi
 
 case $wg_action in
@@ -35,7 +36,7 @@ case $wg_action in
         wg_reg_pri=$(cat privatekey | sed -e "s/\\//\\\\\//g")
 
         #need to change
-        ip_number="$(cat $work_dir/.${wg_name} | head -1 | sed -e "s/@//g" )"
+        ip_number="$(cat $keypath${wg_name} | head -1 | sed -e "s/@//g" )"
         touch "192.168.50.$ip_number"
         sed -i -e "/$ip_number/,+d"  "$work_dir/tmp/${wg_name}"
         #need to change
@@ -58,8 +59,8 @@ case $wg_action in
         echo $ip_number
         sed -i -e "/#$wg_hostname/,+4d" "${wgconf_path}${wg_name}.conf"
         rm -rf $key_path$wg_hostname
-        echo "${work_dir}/tmp/${wg_name}"
-        echo -e "@${ip_number}@" >>　"${work_dir}/tmp/${wg_name}"
+        echo "$keypath${wg_name}"
+        echo -e "@${ip_number}@" >>　"$keypath${wg_name}"
     ;;
     "recover")
 
