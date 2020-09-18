@@ -58,7 +58,7 @@ case $wg_action in
         echo $ip_number
         sed -i -e "/#$wg_hostname/,+4d" "${wgconf_path}${wg_name}.conf"
         rm -rf $key_path$wg_hostname
-        echo "${work_dir}/.${wg_name}"
+        echo "${work_dir}/tmp/${wg_name}"
         echo -e "@${ip_number}@" >>　"${work_dir}/tmp/${wg_name}"
     ;;
     "recover")
