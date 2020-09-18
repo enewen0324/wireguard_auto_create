@@ -36,7 +36,7 @@ case $wg_action in
         wg_reg_pri=$(cat privatekey | sed -e "s/\\//\\\\\//g")
 
         #need to change
-        ip_number="$(cat $keypath${wg_name} | head -1 | sed -e "s/@//g" )"
+        ip_number="$(cat ${key_path}${wg_name} | head -1 | sed -e "s/@//g" )"
         touch "192.168.50.$ip_number"
         sed -i -e "/$ip_number/,+d"  "$work_dir/tmp/${wg_name}"
         #need to change
@@ -60,7 +60,7 @@ case $wg_action in
         sed -i -e "/#$wg_hostname/,+4d" "${wgconf_path}${wg_name}.conf"
         rm -rf $key_path$wg_hostname
         echo "$keypath${wg_name}"
-        echo -e "@${ip_number}@" >>　"$keypath${wg_name}"
+        echo -e "@${ip_number}@" >>　"${key_path}${wg_name}"
     ;;
     "recover")
 
