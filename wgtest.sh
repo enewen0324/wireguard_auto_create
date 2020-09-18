@@ -37,7 +37,7 @@ case $wg_action in
         #need to change
         ip_number="$(cat $work_dir/.${wg_name} | head -1 | sed -e "s/@//g" )"
         touch "192.168.50.$ip_number"
-        sed -i -e "/$ip_number/,+d"  $work_dir/.${wg_name}
+        sed -i -e "/$ip_number/,+d"  "$work_dir/tmp/${wg_name}"
         #need to change
 
         echo "#${wg_hostname}" >> "${wgconf_path}${wg_name}.conf"
@@ -59,7 +59,7 @@ case $wg_action in
         sed -i -e "/#$wg_hostname/,+4d" "${wgconf_path}${wg_name}.conf"
         rm -rf $key_path$wg_hostname
         echo "${work_dir}/.${wg_name}"
-        echo -e "@${ip_number}@" >>　"${work_dir}/.${wg_name}"
+        echo -e "@${ip_number}@" >>　"${work_dir}/tmp/${wg_name}"
     ;;
     "recover")
 
