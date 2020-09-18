@@ -12,7 +12,7 @@ max_backup_num="5"
 work_dir=$(pwd)
 
 read -p "The wireguard configure you want to change: " wg_name
-read -p "Action(add or delete or recover): " wg_action
+read -p "Action(add or delete or recover or create): " wg_action
 
 date=$(date +"%F#%T")
 cp "$wgconf_path$wg_name.conf" "${key_path}backup/$date"
@@ -63,7 +63,15 @@ case $wg_action in
         echo -e "@${ip_number}@" >> "${key_path}${wg_name}"
     ;;
     "recover")
-
+        list=$(ls ${key_path}backup)
+        read -p "$list" file_recover
+        echo -e "\n"
+        cat "${key_path}backup/$file_recover"
+        echo -e "\n"
+        read -p "Are you sure you want to recover this conf? This action cant be recover. (y/N)" check
+        if [ "$check" == "y" ];then
+            cp "${key_path}backup/$file_recover" "$wgconf_path$wg_name.conf" 
+        fi
     ;;
     "create")
     
