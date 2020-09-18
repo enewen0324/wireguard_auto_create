@@ -43,7 +43,7 @@ case $wg_action in
         echo "#${wg_hostname}" >> "${wgconf_path}${wg_name}.conf"
         sed -e "s/A.B.C.D/192.168.50.${ip_number}\/32/g" -e "s/KKKEY/${wg_reg_pub}/g" $template_path$template_name >> "${wgconf_path}${wg_name}.conf"
         
-        echo -e  "\n\n" >> "${wgconf_path}${wg_name}.conf"
+        #echo -e  "\n\n" >> "${wgconf_path}${wg_name}.conf"
         echo -e "\nYour publickey:\n"
         echo $wg_public
         sed -e "s/A.B.C.D/192.168.50.${ip_number}\/24/g" -e "s/PPPRIKEY/${wg_reg_pri}/g" $template_path$template_tunnel_name > "${key_path}${wg_hostname}/tunnel"
@@ -58,7 +58,7 @@ case $wg_action in
         echo $ip_number
         sed -i -e "/#$wg_hostname/,+4d" "${wgconf_path}${wg_name}.conf"
         rm -rf $key_path$wg_hostname
-        echo "@$ip_number@" >>　$work_dir/.${wg_name}
+        echo "@$ip_number@" >>　"$work_dir/.${wg_name}"
     ;;
     "recover")
 
